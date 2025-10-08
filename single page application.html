@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple SPA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    nav a {
+      margin: 10px;
+      text-decoration: none;
+      color: blue;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    #app {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#/" onclick="navigate('/')">Home</a>
+    <a href="#/about" onclick="navigate('/about')">About</a>
+    <a href="#/contact" onclick="navigate('/contact')">Contact</a>
+  </nav>
+
+  <div id="app">
+    <!-- Content will be loaded here -->
+  </div>
+
+  <script>
+    // Define routes
+    const routes = {
+      '/': '<h2>Home</h2><p>Welcome to the Home page!</p>',
+      '/about': '<h2>About</h2><p>This is a simple SPA example without any framework.</p>',
+      '/contact': '<h2>Contact</h2><p>You can contact us at email@example.com.</p>'
+    };
+
+    // Router function
+    function router() {
+      const path = location.hash.slice(1) || '/';
+      const app = document.getElementById('app');
+      app.innerHTML = routes[path] || '<h2>404</h2><p>Page not found.</p>';
+    }
+
+    // Navigate without reload
+    function navigate(path) {
+      location.hash = path;
+    }
+
+    // Listen to hash changes
+    window.addEventListener('hashchange', router);
+    window.addEventListener('load', router); // Load initial route
+  </script>
+
+</body>
+</html>
